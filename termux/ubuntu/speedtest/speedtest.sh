@@ -3,7 +3,7 @@ cd ~/speedtest/cloudflare
 git fetch --all
 git reset --hard origin/master
 git pull
-cat * > all.txt
+cat * > ../all.txt
 cd ../OpenBullet2
 
 # 需要修改配置路径

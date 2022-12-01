@@ -1,15 +1,15 @@
 #!/bin/bash
 apt-get update && apt-get upgrade -y
 apt-get install wget -y
+apt-get install unzip -y
 
 # install dotnet
 wget https://download.visualstudio.microsoft.com/download/pr/67ca3f83-3769-4cd8-882a-27ab0c191784/bf631a0229827de92f5c026055218cc0/dotnet-sdk-6.0.403-linux-arm64.tar.gz
 mkdir -p $HOME/dotnet && tar zxf dotnet-sdk* -C $HOME/dotnet
 rm dotnet-sdk*
-echo -e "$(cat ~/.zshrc)\nexport DOTNET_ROOT=$HOME/dotnet\nexport PATH=$PATH:~/bin:$HOME/dotnet" > ~/.zshrc
+echo -e "export DOTNET_ROOT=$HOME/dotnet\nexport PATH=$PATH:~/bin:$HOME/dotnet\n$(cat ~/.zshrc)" > ~/.zshrc
 export DOTNET_ROOT=$HOME/dotnet
 export PATH=$PATH:~/bin:$HOME/dotnet
-source ~/.zshrc
 
 #speedtest
 mkdir speedtest
