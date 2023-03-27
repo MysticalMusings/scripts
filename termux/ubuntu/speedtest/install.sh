@@ -1,6 +1,6 @@
 #!/bin/bash
-apt-get update && apt-get upgrade -y
-apt-get install wget unzip libicu-dev -y
+apt update && apt upgrade -y
+apt install wget unzip libicu-dev -y
 
 # dotnet
 wget https://download.visualstudio.microsoft.com/download/pr/67ca3f83-3769-4cd8-882a-27ab0c191784/bf631a0229827de92f5c026055218cc0/dotnet-sdk-6.0.403-linux-arm64.tar.gz
@@ -18,7 +18,6 @@ tar xfv CloudflareST_linux_arm64*
 rm CloudflareST_linux_arm64*
 
 # cloudflare ip地址
-git clone git@github.com:ip-scanner/cloudflare.git
 
 # openbullet
 mkdir OpenBullet2
@@ -31,3 +30,8 @@ rm OpenBullet2.Console.zip
 wget  -P ~/bin https://raw.githubusercontent.com/MysticalMusings/scripts/main/termux/ubuntu/speedtest/speedtest.sh
 mv ~/bin/speedtest.sh ~/bin/a
 chmod +x ~/bin/a
+
+echo '之后步骤：'
+echo '1. 配置git，将ssh密钥添加到github'
+echo '2. cd speedtest; git clone git@github.com:ip-scanner/cloudflare.git'
+echo '3. 将cf.opk文件保存到speedtest下'
