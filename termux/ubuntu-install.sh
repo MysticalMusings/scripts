@@ -1,6 +1,6 @@
 #!/bin/bash
-apt-get update && apt-get upgrade -y
-apt-get install wget git proot -y
+apt update && apt upgrade -y
+apt install wget git proot -y
 cd ~
 git clone https://github.com/MFDGaming/ubuntu-in-termux.git
 cd ubuntu-in-termux
