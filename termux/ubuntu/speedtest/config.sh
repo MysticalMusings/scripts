@@ -28,6 +28,6 @@ unzip OpenBullet2*
 rm OpenBullet2.Console.zip
 
 # 测速脚本
-wget -P ~/bin https://raw.githubusercontent.com/MysticalMusings/scripts/main/termux/ubuntu/speedtest/speedtest.sh
+wget  -P ~/bin https://raw.githubusercontent.com/MysticalMusings/scripts/main/termux/ubuntu/speedtest/speedtest.sh
 mv ~/bin/speedtest.sh ~/bin/a
 chmod +x ~/bin/a

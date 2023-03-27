@@ -7,7 +7,7 @@ cat * > ../all.txt
 cd ../OpenBullet2
 
 # 需要修改配置路径
-echo | dotnet OpenBullet2.Console.dll --bots 100 --config ../cf.opk -v -w ../all.txt --wltype Default | grep -oP "(?<=SUCCESS:\s)[0-9].*" > ../output.txt
+echo  | dotnet OpenBullet2.Console.dll --bots 100 --config ../cf.opk -v -w ../all.txt --wltype Default | grep -oP "(?<=SUCCESS:\s)[0-9].*" > ../output.txt
 cd ..
 
 # 修改测速网址
