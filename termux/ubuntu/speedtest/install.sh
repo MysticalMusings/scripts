@@ -6,9 +6,9 @@ apt-get install wget unzip libicu-dev -y
 wget https://download.visualstudio.microsoft.com/download/pr/67ca3f83-3769-4cd8-882a-27ab0c191784/bf631a0229827de92f5c026055218cc0/dotnet-sdk-6.0.403-linux-arm64.tar.gz
 mkdir -p $HOME/dotnet && tar zxf dotnet-sdk* -C $HOME/dotnet
 rm dotnet-sdk*
-sed -i '1 iexport DOTNET_ROOT=$HOME/dotnet\nexport PATH=$PATH:~/bin:$HOME/dotnet' ~/.zshrc
+sed -i '1 iexport DOTNET_ROOT=$HOME/dotnet\nexport PATH=$PATH:$HOME/dotnet' ~/.zshrc
 export DOTNET_ROOT=$HOME/dotnet
-export PATH=$PATH:~/bin:$HOME/dotnet
+export PATH=$PATH:$HOME/dotnet
 
 # speedtest
 mkdir speedtest
