@@ -3,5 +3,5 @@
 
 ## 使用方法
 ```bash
-curl -s https://raw.githubusercontent.com/MysticalMusings/scripts/main/对应目录的脚本 | bash
+sh -c "$(curl -fsSL https://github.com/MysticalMusings/scripts/raw/main/对应目录的脚本)"
 ```
