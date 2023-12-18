@@ -28,7 +28,7 @@ const ShadowBlur = 15
 // imported from https://github.com/tholman/cursor-effects/blob/master/src/rainbowCursor.js
 function createTrail(options) {
   const totalParticles = options?.length || 20
-  let particlesColor = options?.color || "#90a7b2"
+  let particlesColor = options?.color || "#90A7B2"
   const style = options?.style || "block"
   const canvas = options?.canvas
   const context = canvas.getContext("2d")
