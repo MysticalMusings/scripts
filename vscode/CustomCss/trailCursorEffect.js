@@ -14,10 +14,10 @@ const Color = "default" // If set to "default," it will use the theme's cursor c
 const CursorStyle = "block" // Options are 'line' or 'block'
 
 // Set the length of the cursor trail. A higher value may cause lag.
-const TrailLength = 4 // Recommended value is around 8
+const TrailLength = 6 // Recommended value is around 8
  
 // Set the polling rate for handling cursor created and destroyed events, in milliseconds.
-const CursorUpdatePollingRate = 500 // Recommended value is around 500
+const CursorUpdatePollingRate = 200 // Recommended value is around 500
 
 // Use shadow
 const UseShadow = false
