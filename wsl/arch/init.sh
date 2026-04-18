@@ -19,7 +19,7 @@ check_and_install() {
 
 echo "--- 1. 更新系统和安装基础软件包 ---"
 pacman -Sy --noconfirm
-check_and_install sudo vim git openssh
+check_and_install sudo vim git openssh lazygit tmux zsh thefuck
 
 echo "--- 2. 创建用户 aaa ---"
 if id "aaa" &>/dev/null; then
@@ -86,6 +86,40 @@ echo ".cfg" >> \$HOME/.gitignore
 mkdir -p \$HOME/.config-backup
 config checkout 2>&1 | grep -E "\s+\." | awk {'print \$1'} | xargs -I{} mv {} .config-backup/{}
 config checkout
+EOF
+
+echo "--- 7. 安装 Homebrew、Tmux 环境及 Oh My Zsh ---"
+su - aaa <<EOF
+# 1. 安装 Homebrew
+if ! command -v brew &> /dev/null; then
+    /bin/bash -c "\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "\$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# 2. 安装 Brew 依赖 (需 sudo 权限，假设aaa已在wheel组)
+# 注意：base-devel 在 Arch 中可能部分已装，此处确保全覆盖
+sudo pacman -S --noconfirm base-devel
+brew install gcc
+
+# 3. 安装 Tmux TPM
+if [ ! -d "~/.tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
+
+# 4. 安装 Oh My Zsh (需提前安装 zsh)
+sudo pacman -S --noconfirm zsh
+if [ ! -d "~/.oh-my-zsh" ]; then
+    sh -c "\$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
+
+# 5. 安装 Zsh 插件
+ZSH_CUSTOM=\${ZSH_CUSTOM:-~/.oh-my-zsh/custom}
+
+git clone https://github.com/zsh-users/zsh-autosuggestions \$ZSH_CUSTOM/plugins/zsh-autosuggestions
+git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete.git \$ZSH_CUSTOM/plugins/zsh-autocomplete
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git \$ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+
+echo "环境补充配置完成。"
 EOF
 
 echo "配置完成！"
