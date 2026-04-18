@@ -6,23 +6,24 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # 1. 自动检测发行版并设置变量
+COMMON_PKGS="sudo vim git curl zsh tmux thefuck"
 if [ -f /etc/arch-release ]; then
     PKG_MGR="pacman -S --noconfirm"
     PKG_UPDATE="pacman -Sy"
     PKG_CHECK="pacman -Qs"
-    PKGS_BASIC="sudo vim git openssh curl base-devel zsh tmux"
+    PKGS_BASIC="openssh base-devel"
     SUDO_GROUP="wheel"
 elif [ -f /etc/debian_version ] || [ -f /etc/lsb-release ]; then
     PKG_MGR="apt-get install -y"
     PKG_UPDATE="apt-get update"
     PKG_CHECK="dpkg -l"
-    PKGS_BASIC="sudo vim git openssh-client curl build-essential zsh tmux"
+    PKGS_BASIC="openssh-client build-essential"
     SUDO_GROUP="sudo"
 elif [ -f /etc/fedora-release ]; then
     PKG_MGR="dnf install -y"
     PKG_UPDATE="dnf check-update"
     PKG_CHECK="rpm -q"
-    PKGS_BASIC="sudo vim git openssh-clients curl @development-tools zsh tmux"
+    PKGS_BASIC="openssh-clients @development-tools"
     SUDO_GROUP="wheel"
 else
     echo "不支持的发行版"
@@ -31,7 +32,8 @@ fi
 
 # 2. 基础环境安装
 $PKG_UPDATE
-for pkg in $PKGS_BASIC; do
+ALL_PKGS="$COMMON_PKGS $ARCH_PKGS"
+for pkg in $ALL_PKGS; do
     if ! $PKG_CHECK "$pkg" > /dev/null 2>&1; then
         $PKG_MGR "$pkg"
     fi
