@@ -63,7 +63,7 @@ export WIN_USER_PROMPT=$(read -p "宿主机Windows用户名: " u && echo $u)
 export SSH_KEY_PROMPT=$(read -p "SSH私钥文件名(如 id_rsa): " k && echo $k)
 export GIT_NAME_PROMPT=$(read -p "Git用户名: " n && echo $n)
 export GIT_EMAIL_PROMPT=$(read -p "Git邮箱: " e && echo $e)
-export REPO_URL_PROMPT=$(read -p "GitHub仓库地址: " r && echo $r)
+export REPO_URL_PROMPT=$(read -p "配置文件的GitHub仓库地址: " r && echo $r)
 
 su - aaa <<EOF
 # 配置 SSH
