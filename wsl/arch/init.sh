@@ -17,11 +17,11 @@ check_and_install() {
     done
 }
 
-echo "--- 1. 更新系统和安装基础软件包 ---"
+echo "--- 更新系统和安装基础软件包 ---"
 pacman -Sy --noconfirm
 check_and_install sudo vim git openssh lazygit tmux zsh thefuck
 
-echo "--- 2. 创建用户 aaa ---"
+echo "--- 创建用户 aaa ---"
 if id "aaa" &>/dev/null; then
     echo "用户 aaa 已存在，跳过创建。"
 else
@@ -30,7 +30,7 @@ else
     echo "用户 aaa 创建成功。"
 fi
 
-echo "--- 3. 配置 visudo ---"
+echo "--- 配置 visudo ---"
 # 使用 grep 检查是否已经取消了注释，防止重复写入
 if grep -q "^%wheel ALL=(ALL:ALL) ALL" /etc/sudoers; then
     echo "sudoers 配置已存在，跳过。"
@@ -38,7 +38,16 @@ else
     sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 fi
 
-echo "--- 4. 配置 SSH 密钥 ---"
+echo "--- 配置 WSL 默认登录用户为 aaa ---"
+# 将配置写入 /etc/wsl.conf
+# 如果文件已存在，使用 >> 追加；如果不存在，则创建
+cat <<EOF | sudo tee -a /etc/wsl.conf > /dev/null
+
+[user]
+default=aaa
+EOF
+
+echo "--- 配置 SSH 密钥 ---"
 read -p "请输入宿主机Windows用户名: " win_user
 read -p "请输入SSH私钥文件名(如 id_rsa): " ssh_key_name
 SSH_SOURCE_DIR="/mnt/c/Users/${win_user}/.ssh"
@@ -55,11 +64,11 @@ else
     echo "警告: 未找到密钥文件，跳过 SSH 配置。"
 fi
 
-echo "--- 5. 设置 Git 用户信息 ---"
+echo "--- 设置 Git 用户信息 ---"
 read -p "请输入 Git 用户名: " git_name
 read -p "请输入 Git 邮箱: " git_email
 
-echo "--- 6. 配置 Git dotfiles 环境 ---"
+echo "--- 配置 Git dotfiles 环境 ---"
 read -p "请输入 GitHub 仓库地址 (git@github.com:username/repo.git): " repo_url
 
 su - aaa <<EOF
@@ -88,7 +97,7 @@ config checkout 2>&1 | grep -E "\s+\." | awk {'print \$1'} | xargs -I{} mv {} .c
 config checkout
 EOF
 
-echo "--- 7. 安装 Homebrew、Tmux 环境及 Oh My Zsh ---"
+echo "--- 安装 Homebrew、Tmux 环境及 Oh My Zsh ---"
 su - aaa <<EOF
 # 1. 安装 Homebrew
 if ! command -v brew &> /dev/null; then
